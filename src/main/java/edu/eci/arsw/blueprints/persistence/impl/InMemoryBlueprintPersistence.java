@@ -40,7 +40,6 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
             throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
         } else {
             blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
-            System.out.println(blueprints.toString());
         }
     }
 
@@ -55,9 +54,10 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
         for (Blueprint blp : blueprints.values()) {
             if (blp.getAuthor().equals(author)) {
                 blueprintSet.add(blp);
-            } else if (blueprintSet.isEmpty()) {
-                throw new BlueprintNotFoundException("There is no blueprints registered by " + author);
-            }
+            } 
+        }
+        if (blueprintSet.isEmpty()) {
+            throw new BlueprintNotFoundException("There is no blueprints registered by " + author);
         }
         return blueprintSet;
     }

@@ -10,6 +10,8 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+import edu.eci.arsw.blueprints.services.filter.BlueprintFilter;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -28,12 +30,12 @@ public class BlueprintsServices {
     @Qualifier("inMemoryBlueprintPersistence")
     BlueprintsPersistence bpp;
 
-    public void addNewBlueprint(Blueprint bp) {
-        try {
-            bpp.saveBlueprint(bp);
-        } catch (BlueprintPersistenceException e) {
-            e.printStackTrace();
-        }
+    @Autowired
+    @Qualifier("redundancyFiltering")
+    BlueprintFilter filter;
+
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException {
+        bpp.saveBlueprint(bp);
     }
 
     public Set<Blueprint> getAllBlueprints() {
@@ -61,4 +63,7 @@ public class BlueprintsServices {
         return bpp.getBlueprintsByAuthor(author);
     }
 
+    public Set<Blueprint> filterBlueprintsPoints(Set<Blueprint> bl){
+        return filter.filter(bl);
+    }
 }
