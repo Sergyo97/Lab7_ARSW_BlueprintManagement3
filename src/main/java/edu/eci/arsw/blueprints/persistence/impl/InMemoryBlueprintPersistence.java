@@ -72,4 +72,15 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
         return blueprintSet;
     }
 
+    @Override
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
+        Set<Blueprint> blueprintsSet = new HashSet<>();
+        for (Blueprint blp : blueprints.values()) {
+            blueprintsSet.add(blp);
+        }
+        if (blueprintsSet.isEmpty())
+            throw new BlueprintNotFoundException("There are no blueprints");
+        return blueprintsSet;
+    }
+
 }

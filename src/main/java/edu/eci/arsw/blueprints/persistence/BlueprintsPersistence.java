@@ -16,6 +16,12 @@ import edu.eci.arsw.blueprints.model.Blueprint;
 public interface BlueprintsPersistence {
     
     /**
+     * @return
+     * @throws BlueprintNotFoundException
+     */
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException; 
+    
+    /**
      * 
      * @param bp the new blueprint
      * @throws BlueprintPersistenceException if a blueprint with the same name already exists,
