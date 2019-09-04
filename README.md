@@ -1,5 +1,5 @@
 
-# # Blueprint Management 1 Laboratory
+# Blueprint Management 1 Laboratory
 
 ## Class Diagram
 ![Class Diagram](https://github.com/Sergyo97/Lab5_ARSW_BlueprintManagement/blob/master/img/ClassDiagram1.png)
