@@ -5,6 +5,8 @@
  */
 package edu.eci.arsw.blueprints.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,7 @@ public class BlueprintsServices {
         return bpp.getBlueprintsByAuthor(author);
     }
 
-    public Point[] filterPoints(Point[] points){
+    public ArrayList<Point> filterPoints(List<Point> points){
         return filter.filter(points);
     }
 

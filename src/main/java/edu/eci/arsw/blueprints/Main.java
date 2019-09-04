@@ -22,11 +22,7 @@ public class Main {
         Blueprint bp = new Blueprint("David", "El toro Aurelio",
                 new Point[] { new Point(140, 140), new Point(115, 115), new Point(115, 115), new Point(115, 115),
                         new Point(115, 115), new Point(115, 115), new Point(115, 115) });
-        Point[] pp = new Point[bp.getPoints().size()];
-        for (int i = 0; i < bp.getPoints().size(); i++) {
-            pp[i] = bp.getPoints().get(i);
-        }
         blps.addNewBlueprint(bp);
-        System.out.println(Arrays.toString(blps.filterPoints(pp)));
+        System.out.println(blps.filterPoints(bp.getPoints()));
     }
 }
