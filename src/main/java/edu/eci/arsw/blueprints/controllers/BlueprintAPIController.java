@@ -5,13 +5,10 @@
  */
 package edu.eci.arsw.blueprints.controllers;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,8 +60,7 @@ public class BlueprintAPIController {
     }
 
     @PostMapping("/blueprints")
-    public ResponseEntity<?> manejadorPostRecursoXX(@RequestBody Blueprint bp) {
-        
+    public ResponseEntity<?> createBlueprint(@RequestBody Blueprint bp) {
         try {
             bps.addNewBlueprint(bp);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,6 +68,15 @@ public class BlueprintAPIController {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("Error bla bla bla", HttpStatus.FORBIDDEN);
         }
+    }
 
+    @RequestMapping(value = "/blueprints/{author}/{name}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateBlueprint(@RequestBody Blueprint bp) {
+        try {
+            bps.updateBlueprint(bp);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
     }
 }

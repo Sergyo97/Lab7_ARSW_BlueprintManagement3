@@ -68,5 +68,8 @@ public class BlueprintsServices {
     public ArrayList<Point> filterPoints(List<Point> points){
         return filter.filter(points);
     }
-
+    
+    public void updateBlueprint(Blueprint bp)throws BlueprintPersistenceException{
+        bpp.updateBlueprint(bp);
+    }
 }
