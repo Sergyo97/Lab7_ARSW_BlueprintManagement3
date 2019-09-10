@@ -10,6 +10,8 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,8 +26,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
-    private final Map<Tuple<String, String>, Blueprint> blueprints = new HashMap<>();
-
+    
+    private final Map<Tuple<String, String>, Blueprint> blueprints = Collections.synchronizedMap(new HashMap<>());
+    
     public InMemoryBlueprintPersistence() {
         // load stub data
         Point[] pts = new Point[] { new Point(140, 140), new Point(115, 115) };
@@ -46,50 +49,64 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
     @Override
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
-        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
-            throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
-        } else {
-            blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+        synchronized (blueprints) {
+            if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
+                throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
+            } else {
+                blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+            }
         }
+
     }
 
     @Override
     public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
-        return blueprints.get(new Tuple<>(author, bprintname));
+        synchronized (blueprints) {
+            return blueprints.get(new Tuple<>(author, bprintname));
+        }
     }
 
     @Override
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
-        Set<Blueprint> blueprintSet = new HashSet<>();
-        for (Blueprint blp : blueprints.values()) {
-            if (blp.getAuthor().equals(author)) {
-                blueprintSet.add(blp);
+        synchronized (blueprints) {
+            Set<Blueprint> blueprintSet = new HashSet<>();
+            for (Blueprint blp : blueprints.values()) {
+                if (blp.getAuthor().equals(author)) {
+                    blueprintSet.add(blp);
+                }
             }
+            if (blueprintSet.isEmpty()) {
+                throw new BlueprintNotFoundException("There is no blueprints registered by " + author);
+            }
+            return blueprintSet;
         }
-        if (blueprintSet.isEmpty()) {
-            throw new BlueprintNotFoundException("There is no blueprints registered by " + author);
-        }
-        return blueprintSet;
+
     }
 
     @Override
     public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
-        Set<Blueprint> blueprintsSet = new HashSet<>();
-        for (Blueprint blp : blueprints.values()) {
-            blueprintsSet.add(blp);
+        synchronized (blueprints) {
+            Set<Blueprint> blueprintsSet = new HashSet<>();
+            for (Blueprint blp : blueprints.values()) {
+                blueprintsSet.add(blp);
+            }
+            if (blueprintsSet.isEmpty())
+                throw new BlueprintNotFoundException("There are no blueprints");
+            return blueprintsSet;
         }
-        if (blueprintsSet.isEmpty())
-            throw new BlueprintNotFoundException("There are no blueprints");
-        return blueprintsSet;
+
     }
 
     @Override
     public void updateBlueprint(Blueprint bp) throws BlueprintPersistenceException {
-        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
-            blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
-        } else {
-            throw new BlueprintPersistenceException("The given blueprint does not exist: " + bp);
+        synchronized (blueprints) {
+            if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
+                blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+            } else {
+                throw new BlueprintPersistenceException("The given blueprint does not exist: " + bp);
+            }
         }
+
     }
 
 }
