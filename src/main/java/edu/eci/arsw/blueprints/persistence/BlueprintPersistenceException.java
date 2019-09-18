@@ -11,11 +11,6 @@ package edu.eci.arsw.blueprints.persistence;
  */
 public class BlueprintPersistenceException extends Exception{
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     public BlueprintPersistenceException(String message) {
         super(message);
     }

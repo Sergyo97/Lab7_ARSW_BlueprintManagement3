@@ -5,21 +5,14 @@
  */
 package edu.eci.arsw.blueprints.persistence;
 
-import java.util.Set;
-
 import edu.eci.arsw.blueprints.model.Blueprint;
+import java.util.Set;
 
 /**
  *
  * @author hcadavid
  */
 public interface BlueprintsPersistence {
-    
-    /**
-     * @return
-     * @throws BlueprintNotFoundException
-     */
-    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException; 
     
     /**
      * 
@@ -31,21 +24,35 @@ public interface BlueprintsPersistence {
     
     /**
      * 
+     * @param bp the new blueprint
+     * @param author el autor del mapa
+     * @param name el nombre del mapa
+     * @throws 
+     */
+    public void modifyOrAddBlueprintS(Blueprint bp, String author, String name) throws BlueprintPersistenceException;
+    
+    /**
+     * 
      * @param author blueprint's author
      * @param bprintname blueprint's author
      * @return the blueprint of the given name and author
      * @throws BlueprintNotFoundException if there is no such blueprint
      */
     public Blueprint getBlueprint(String author,String bprintname) throws BlueprintNotFoundException;
-
-    /**
-     * 
+    
+     /**
+     * Metodo encargado de traer los BluePrint por autor
      * @param author blueprint's author
-     * @return all blueprints from the given author
-     * @throws BlueprintNotFoundException if there is no such blueprint by this author
+     * @return the blueprint of the given name and author
+     * @throws BlueprintNotFoundException if there is no such blueprint
      */
-    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException;
-
-	public void updateBlueprint(Blueprint bp) throws BlueprintPersistenceException;
+    public Set<Blueprint> getBlueprintByAuthor(String author) throws BlueprintNotFoundException;
+    
+         /**
+     * Metodo encargado de traer tooos los BluePrint
+     * @return todos los BluePrint
+     * @throws BlueprintNotFoundException if there is no such blueprint
+     */
+    public Set<Blueprint> getAllBluePrint() throws BlueprintNotFoundException;
     
 }

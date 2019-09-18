@@ -11,11 +11,6 @@ package edu.eci.arsw.blueprints.persistence;
  */
 public class BlueprintNotFoundException extends Exception{
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     public BlueprintNotFoundException(String message) {
         super(message);
     }
