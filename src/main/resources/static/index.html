@@ -18,14 +18,20 @@
         <h1>Blueprints</h1>
     </div> <br>
     <div class="d-flex flex-row m-3">
-        <form>
-            <label for="putAuthor"></label>
-            <input class="form-control" type="text" id="putAuthor" placeholder="Author">
-            <button class="p-2 bd-highlight" type="button">Get Blueprints</button>
+        <form class='form-inline'>
+            <label class='mx-2' for="putAuthor">Author</label>
+            <input class="mx-2 form-control" type="text" id="putAuthor" placeholder="Author">
+            <button class="mx-2 btn btn-info" type="button"
+                onClick="app.getBlueprintsByAuthor($('#putAuthor').val())">Get Blueprints</button>
         </form>
     </div> <br>
+
+
     <div>
-        <table class="table">
+        <h2 class='mx-3' id='table-author'>Author's blueprints </h2>
+    </div>
+    <div class='d-flex w-50 mx-3'>
+        <table class="table" id="table">
             <thead class="thead-dark">
                 <tr>
                     <th>Blueprint name</th>
@@ -34,7 +40,13 @@
                 </tr>
             </thead>
         </table>
+    </div><br>
+    <div>
+        <h2 class='mx-3' id='points-counter'>Total user points: </h2>
     </div>
 </body>
+
+<script src="js/apimock.js"></script>
+<script src="js/app.js"></script>
 
 </html>

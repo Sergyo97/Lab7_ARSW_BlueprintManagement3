@@ -1,5 +1,4 @@
-
-apimock = (function () {
+var apimock = (function () {
 
     var mockdata = [];
 
@@ -20,7 +19,7 @@ apimock = (function () {
         },
         {
             author: "JohnConnor",
-            name: "bike",
+            name: "gear",
             points: [
                 {
                     x: 30,
@@ -35,10 +34,8 @@ apimock = (function () {
     ];
 
     return {
-        getBlueprintByAuthor: function (name, callback) {
-            callback(
-                mockdata[name]
-            );
+        getBlueprintsByAuthor: function (author, callback) {
+            callback(null, mockdata[author]);
         }
     }
 
