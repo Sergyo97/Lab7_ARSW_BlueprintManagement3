@@ -3,15 +3,39 @@ apimock = (function () {
 
     var mockdata = [];
 
-
-
-    mockdata["Cine80"] = [{ "name": "Cine80", "functions": [{ "movie": { "name": "Titanic Movie", "genre": "Action" }, "seats": [[true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]], "date": "2018-12-18 15:30" }, { "movie": { "name": "The Purge", "genre": "Horror" }, "seats": [[true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]], "date": "2018-12-18 15:30" }] }];
-
-    mockdata["Cine112"] = [{ "name": "Cine112", "functions": [{ "movie": { "name": "mision imposible", "genre": "Fiction" }, "seats": [[true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]], "date": "2018-12-18 15:31" }] }];
-
+    mockdata["JohnConnor"] = [
+        {
+            author: "JohnConnor",
+            name: "house",
+            points: [
+                {
+                    x: 10,
+                    y: 20
+                },
+                {
+                    x: 15,
+                    y: 25
+                }
+            ]
+        },
+        {
+            author: "JohnConnor",
+            name: "bike",
+            points: [
+                {
+                    x: 30,
+                    y: 45
+                },
+                {
+                    x: 40,
+                    y: 45
+                }
+            ]
+        }
+    ];
 
     return {
-        getCinemaByName: function (name, callback) {
+        getBlueprintByAuthor: function (name, callback) {
             callback(
                 mockdata[name]
             );
